@@ -64,7 +64,12 @@
             box-shadow: 0 4px 10px rgba(13, 148, 136, 0.3);
         }
 
-        /* Calculator Container with Frame */
+        /* Main View - Calculator Container */
+        #main-view {
+            width: 100%;
+            max-width: 420px;
+        }
+
         .calculator-container {
             background: var(--card-bg);
             padding: 30px;
@@ -72,7 +77,6 @@
             border: 4px solid #14b8a6;
             box-shadow: 0 15px 35px rgba(15, 118, 110, 0.15), 0 5px 15px rgba(0, 0, 0, 0.05);
             width: 100%;
-            max-width: 420px;
             display: none;
         }
 
@@ -150,7 +154,7 @@
             grid-column: span 2;
         }
 
-        /* BMI Styling */
+        /* BMI Inputs Styling */
         .bmi-group {
             margin-bottom: 15px;
         }
@@ -184,134 +188,130 @@
             margin-top: 10px;
         }
 
-        /* گول گراف (Gauge Meter Style) */
-        .gauge-container {
-            position: relative;
-            width: 260px;
-            height: 135px;
-            margin: 20px auto 10px auto;
-            overflow: hidden;
+        /* ----- SECOND PAGE (FULL REPORT VIEW) ----- */
+        #report-view {
             display: none;
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            border: 4px solid #14b8a6;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
 
-        .gauge-arc {
-            width: 260px;
-            height: 130px;
-            border-top-left-radius: 130px;
-            border-top-right-radius: 130px;
+        .back-btn {
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .report-header {
+            color: #0f766e;
+            border-bottom: 2px solid #14b8a6;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Gauges & Needle Fix */
+        .gauge-wrapper {
+            position: relative;
+            width: 240px;
+            height: 120px;
+            margin: 20px auto 30px auto;
+        }
+
+        .gauge-body {
+            width: 240px;
+            height: 120px;
+            border-top-left-radius: 120px;
+            border-top-right-radius: 120px;
             background: conic-gradient(
-                from 180deg at 50% 100%,
-                #b91c1c 0deg,   /* Obese / Red */
-                #f59e0b 45deg,  /* Overweight / Yellow */
-                #10b981 90deg,  /* Normal / Green */
-                #3b82f6 135deg, /* Underweight / Blue */
-                #b91c1c 180deg
+                from 270deg at 50% 100%,
+                #3b82f6 0deg 40deg,   /* Underweight - Blue */
+                #10b981 40deg 90deg,  /* Normal - Green */
+                #f59e0b 90deg 130deg, /* Overweight - Yellow */
+                #ef4444 130deg 180deg /* Obese - Red */
             );
-            position: absolute;
-            top: 0;
-            left: 0;
         }
 
-        .gauge-cover {
-            width: 200px;
-            height: 100px;
-            background: #ffffff;
-            border-top-left-radius: 100px;
-            border-top-right-radius: 100px;
+        .gauge-inner {
             position: absolute;
             bottom: 0;
             left: 30px;
+            width: 180px;
+            height: 90px;
+            background: #ffffff;
+            border-top-left-radius: 90px;
+            border-top-right-radius: 90px;
         }
 
-        .gauge-needle {
-            width: 4px;
-            height: 110px;
-            background: #1e293b;
+        .gauge-needle-pin {
             position: absolute;
-            bottom: 0;
-            left: 128px;
+            bottom: -5px;
+            left: 112px;
+            width: 16px;
+            height: 16px;
+            background: #0f766e;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .gauge-needle-line {
+            position: absolute;
+            bottom: 3px;
+            left: 118px;
+            width: 4px;
+            height: 95px;
+            background: #0f172a;
             transform-origin: bottom center;
             transform: rotate(-90deg);
             transition: transform 1s ease-in-out;
             border-radius: 2px;
+            z-index: 9;
         }
 
-        .gauge-needle::after {
-            content: '';
-            width: 14px;
-            height: 14px;
-            background: #0f766e;
-            position: absolute;
-            bottom: -7px;
-            left: -5px;
-            border-radius: 50%;
-        }
-
-        .bmi-mini-result {
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: #0f766e;
-            margin-top: 10px;
-            display: none;
-        }
-
-        /* نیا تفصیلی صفحہ (Modal Popup) */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 15px;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            width: 100%;
-            max-width: 450px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-            text-align: right;
-            direction: rtl;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        .modal-content h2 {
-            color: #0f766e;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #14b8a6;
-            padding-bottom: 8px;
-        }
-
-        .modal-body {
+        .report-details {
+            background: #f8fafc;
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
             font-size: 1.05rem;
             line-height: 1.8;
-            color: #334155;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        .close-modal-btn {
-            background: #e11d48;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
+        /* BMI List Table */
+        .bmi-table {
             width: 100%;
-            font-size: 1rem;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.95rem;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .bmi-table th, .bmi-table td {
+            border: 1px solid #cbd5e1;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .bmi-table th {
+            background: #0f766e;
+            color: white;
+        }
+
+        .bmi-table tr:nth-child(even) {
+            background: #f1f5f9;
         }
     </style>
 </head>
@@ -319,102 +319,139 @@
 
     <h1>حساب کتاب اور صحت کا مرکز</h1>
 
-    <!-- Navigation Tabs -->
-    <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('simple', this)">سادہ کیلکولیٹر</button>
-        <button class="tab-btn" onclick="switchTab('scientific', this)">سائنسی کیلکولیٹر</button>
-        <button class="tab-btn" onclick="switchTab('bmi', this)">BMI کیلکولیٹر</button>
+    <!-- MAIN VIEW (Inputs & Calculators) -->
+    <div id="main-view">
+        <!-- Navigation Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('simple', this)">سادہ کیلکولیٹر</button>
+            <button class="tab-btn" onclick="switchTab('scientific', this)">سائنسی کیلکولیٹر</button>
+            <button class="tab-btn" onclick="switchTab('bmi', this)">BMI کیلکولیٹر</button>
+        </div>
+
+        <!-- 1. Simple Calculator -->
+        <div id="simple" class="calculator-container active">
+            <input type="text" id="simple-display" class="display" readonly value="0" />
+            <div class="keys">
+                <button class="calc-btn action-clear" onclick="clearDisplay('simple')">C</button>
+                <button class="calc-btn operator" onclick="appendValue('simple', '(')">(</button>
+                <button class="calc-btn operator" onclick="appendValue('simple', ')')">)</button>
+                <button class="calc-btn operator" onclick="appendValue('simple', '/')">÷</button>
+                
+                <button class="calc-btn num-btn" onclick="appendValue('simple', '7')">7</button>
+                <button class="calc-btn num-btn" onclick="appendValue('simple', '8')">8</button>
+                <button class="calc-btn num-btn" onclick="appendValue('simple', '9')">9</button>
+                <button class="calc-btn operator" onclick="appendValue('simple', '*')">×</button>
+                
+                <button class="calc-btn num-btn" onclick="appendValue('simple', '4')">4</button>
+                <button class="calc-btn num-btn" onclick="appendValue('simple', '5')">5</button>
+                <button class="calc-btn num-btn" onclick="appendValue('simple', '6')">6</button>
+                <button class="calc-btn operator" onclick="appendValue('simple', '-')">-</button>
+                
+                <button class="calc-btn num-btn" onclick="appendValue('simple', '1')">1</button>
+                <button class="calc-btn num-btn" onclick="appendValue('simple', '2')">2</button>
+                <button class="calc-btn num-btn" onclick="appendValue('simple', '3')">3</button>
+                <button class="calc-btn operator" onclick="appendValue('simple', '+')">+</button>
+                
+                <button class="calc-btn num-btn wide" onclick="appendValue('simple', '0')">0</button>
+                <button class="calc-btn num-btn" onclick="appendValue('simple', '.')">.</button>
+                <button class="calc-btn equals" onclick="calculate('simple')">=</button>
+            </div>
+        </div>
+
+        <!-- 2. Scientific Calculator -->
+        <div id="scientific" class="calculator-container">
+            <input type="text" id="scientific-display" class="display" readonly value="0" />
+            <div class="keys">
+                <button class="calc-btn action-clear" onclick="clearDisplay('scientific')">C</button>
+                <button class="calc-btn operator" onclick="sciFunc('Math.sin')">sin</button>
+                <button class="calc-btn operator" onclick="sciFunc('Math.cos')">cos</button>
+                <button class="calc-btn operator" onclick="appendValue('scientific', '/')">÷</button>
+                
+                <button class="calc-btn operator" onclick="sciFunc('Math.tan')">tan</button>
+                <button class="calc-btn num-btn" onclick="appendValue('scientific', '7')">7</button>
+                <button class="calc-btn num-btn" onclick="appendValue('scientific', '8')">8</button>
+                <button class="calc-btn num-btn" onclick="appendValue('scientific', '9')">9</button>
+                
+                <button class="calc-btn operator" onclick="sciFunc('Math.sqrt')">√</button>
+                <button class="calc-btn num-btn" onclick="appendValue('scientific', '4')">4</button>
+                <button class="calc-btn num-btn" onclick="appendValue('scientific', '5')">5</button>
+                <button class="calc-btn num-btn" onclick="appendValue('scientific', '6')">6</button>
+                
+                <button class="calc-btn operator" onclick="appendValue('scientific', '**')">x^y</button>
+                <button class="calc-btn num-btn" onclick="appendValue('scientific', '1')">1</button>
+                <button class="calc-btn num-btn" onclick="appendValue('scientific', '2')">2</button>
+                <button class="calc-btn num-btn" onclick="appendValue('scientific', '3')">3</button>
+                
+                <button class="calc-btn operator" onclick="sciFunc('Math.log')">log</button>
+                <button class="calc-btn num-btn" onclick="appendValue('scientific', '0')">0</button>
+                <button class="calc-btn num-btn" onclick="appendValue('scientific', '.')">.</button>
+                <button class="calc-btn equals" onclick="calculate('scientific')">=</button>
+            </div>
+        </div>
+
+        <!-- 3. BMI Inputs -->
+        <div id="bmi" class="calculator-container">
+            <div class="bmi-group">
+                <label>وزن (کلوگرام میں):</label>
+                <input type="number" id="bmi-weight" placeholder="مثلاً: 75">
+            </div>
+            <div class="bmi-group">
+                <label>قد (کل انچ میں، مثلاً 5 فٹ 6 انچ = 66 انچ):</label>
+                <input type="number" id="bmi-height-inch" placeholder="مثلاً: 66">
+            </div>
+            <button class="bmi-btn" onclick="generateReport()">BMI اور تفصیلی رپورٹ دیکھیں</button>
+        </div>
     </div>
 
-    <!-- 1. Simple Calculator -->
-    <div id="simple" class="calculator-container active">
-        <input type="text" id="simple-display" class="display" readonly value="0" />
-        <div class="keys">
-            <button class="calc-btn action-clear" onclick="clearDisplay('simple')">C</button>
-            <button class="calc-btn operator" onclick="appendValue('simple', '(')">(</button>
-            <button class="calc-btn operator" onclick="appendValue('simple', ')')">)</button>
-            <button class="calc-btn operator" onclick="appendValue('simple', '/')">÷</button>
-            
-            <button class="calc-btn num-btn" onclick="appendValue('simple', '7')">7</button>
-            <button class="calc-btn num-btn" onclick="appendValue('simple', '8')">8</button>
-            <button class="calc-btn num-btn" onclick="appendValue('simple', '9')">9</button>
-            <button class="calc-btn operator" onclick="appendValue('simple', '*')">×</button>
-            
-            <button class="calc-btn num-btn" onclick="appendValue('simple', '4')">4</button>
-            <button class="calc-btn num-btn" onclick="appendValue('simple', '5')">5</button>
-            <button class="calc-btn num-btn" onclick="appendValue('simple', '6')">6</button>
-            <button class="calc-btn operator" onclick="appendValue('simple', '-')">-</button>
-            
-            <button class="calc-btn num-btn" onclick="appendValue('simple', '1')">1</button>
-            <button class="calc-btn num-btn" onclick="appendValue('simple', '2')">2</button>
-            <button class="calc-btn num-btn" onclick="appendValue('simple', '3')">3</button>
-            <button class="calc-btn operator" onclick="appendValue('simple', '+')">+</button>
-            
-            <button class="calc-btn num-btn wide" onclick="appendValue('simple', '0')">0</button>
-            <button class="calc-btn num-btn" onclick="appendValue('simple', '.')">.</button>
-            <button class="calc-btn equals" onclick="calculate('simple')">=</button>
-        </div>
-    </div>
+    <!-- SECOND PAGE (Full Screen Report View) -->
+    <div id="report-view">
+        <button class="back-btn" onclick="showMainPage()">➔ واپس کیلکولیٹر پر جائیں</button>
+        <h2 class="report-header">صحت اور BMI تفصیلی رپورٹ</h2>
 
-    <!-- 2. Scientific Calculator -->
-    <div id="scientific" class="calculator-container">
-        <input type="text" id="scientific-display" class="display" readonly value="0" />
-        <div class="keys">
-            <button class="calc-btn action-clear" onclick="clearDisplay('scientific')">C</button>
-            <button class="calc-btn operator" onclick="sciFunc('Math.sin')">sin</button>
-            <button class="calc-btn operator" onclick="sciFunc('Math.cos')">cos</button>
-            <button class="calc-btn operator" onclick="appendValue('scientific', '/')">÷</button>
-            
-            <button class="calc-btn operator" onclick="sciFunc('Math.tan')">tan</button>
-            <button class="calc-btn num-btn" onclick="appendValue('scientific', '7')">7</button>
-            <button class="calc-btn num-btn" onclick="appendValue('scientific', '8')">8</button>
-            <button class="calc-btn num-btn" onclick="appendValue('scientific', '9')">9</button>
-            
-            <button class="calc-btn operator" onclick="sciFunc('Math.sqrt')">√</button>
-            <button class="calc-btn num-btn" onclick="appendValue('scientific', '4')">4</button>
-            <button class="calc-btn num-btn" onclick="appendValue('scientific', '5')">5</button>
-            <button class="calc-btn num-btn" onclick="appendValue('scientific', '6')">6</button>
-            
-            <button class="calc-btn operator" onclick="appendValue('scientific', '**')">x^y</button>
-            <button class="calc-btn num-btn" onclick="appendValue('scientific', '1')">1</button>
-            <button class="calc-btn num-btn" onclick="appendValue('scientific', '2')">2</button>
-            <button class="calc-btn num-btn" onclick="appendValue('scientific', '3')">3</button>
-            
-            <button class="calc-btn operator" onclick="sciFunc('Math.log')">log</button>
-            <button class="calc-btn num-btn" onclick="appendValue('scientific', '0')">0</button>
-            <button class="calc-btn num-btn" onclick="appendValue('scientific', '.')">.</button>
-            <button class="calc-btn equals" onclick="calculate('scientific')">=</button>
+        <!-- Gauge Meter -->
+        <div class="gauge-wrapper">
+            <div class="gauge-body"></div>
+            <div class="gauge-inner"></div>
+            <div class="gauge-needle-pin"></div>
+            <div id="gauge-needle-line" class="gauge-needle-line"></div>
         </div>
-    </div>
 
-    <!-- 3. BMI Calculator with Inches & Gauge Graph -->
-    <div id="bmi" class="calculator-container">
-        <div class="bmi-group">
-            <label>وزن (کلوگرام میں):</label>
-            <input type="number" id="bmi-weight" placeholder="مثلاً: 75">
-        </div>
-        <div class="bmi-group">
-            <label>قد (کل انچ میں، مثلاً 5 فٹ 6 انچ = 66 انچ):</label>
-            <input type="number" id="bmi-height-inch" placeholder="مثلاً: 66">
-        </div>
-        <button class="bmi-btn" onclick="calculateBMI()">BMI اور تفصیلی رپورٹ دیکھیں</button>
-        
-        <!-- سکرین شاٹ جیسی گول سوئی والا گراف -->
-        <div id="gauge-box" class="gauge-container">
-            <div class="gauge-arc"></div>
-            <div class="gauge-cover"></div>
-            <div id="gauge-needle" class="gauge-needle"></div>
-        </div>
-        <div id="bmi-mini-text" class="bmi-mini-result"></div>
-    </div>
+        <!-- Result Details -->
+        <div id="report-text-details" class="report-details"></div>
 
-    <!-- نیا تفصیلی صفحہ (Popup Modal) -->
-    <div id="bmi-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h2>صحت اور وزنی رپورٹ</h2>
-            <div id="modal-body-text" class="modal-body"></div>
-            <button class="close-modal-btn" onclick="closeModal()">بند کریں</button>
-        </div>
+        <!-- BMI Reference Table -->
+        <h3 style="color:#0f766e; margin-bottom:10px;">BMI کے معیار کی تفصیلی لسٹ:</h3>
+        <table class="bmi-table">
+            <thead>
+                <tr>
+                    <th>BMI اسکور</th>
+                    <th>کیفیت (حالت)</th>
+                    <th>وضاحت</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="color:#2563eb;">
+                    <td>18.5 سے کم</td>
+                    <td>دبلا پن (Underweight)</td>
+                    <td>خوراک اور وزن بڑھانے کی ضرورت ہے</td>
+                </tr>
+                <tr style="color:#059669; font-weight:bold;">
+                    <td>18.5 تا 24.9</td>
+                    <td>صحت مند (Normal)</td>
+                    <td>وزن بالکل متوازن اور اائیڈیل ہے</td>
+                </tr>
+                <tr style="color:#d97706;">
+                    <td>25.0 تا 29.9</td>
+                    <td>زیادہ وزن (Overweight)</td>
+                    <td>وزن گھٹانے کی شروعات کی ضرورت ہے</td>
+                </tr>
+                <tr style="color:#dc2626; font-weight:bold;">
+                    <td>30.0 یا اس سے زیادہ</td>
+                    <td>موٹاپا (Obesity)</td>
+                    <td>فوری طور پر وزن کم کرنا ضروری ہے</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <script>
@@ -465,7 +502,7 @@
             }
         }
 
-        function calculateBMI() {
+        function generateReport() {
             let weight = parseFloat(document.getElementById('bmi-weight').value);
             let heightInches = parseFloat(document.getElementById('bmi-height-inch').value);
             
@@ -474,60 +511,55 @@
                 return;
             }
 
-            // انچ کو میٹر میں تبدیل کرنا (1 انچ = 0.0254 میٹر)
+            // Calculations
             let heightMeters = heightInches * 0.0254;
             let bmi = (weight / (heightMeters * heightMeters)).toFixed(1);
 
-            // آئیڈیل وزن کا حساب (BMI 22 کے مطابق)
             let idealWeight = 22 * (heightMeters * heightMeters);
             let weightDiff = Math.abs(weight - idealWeight).toFixed(1);
 
             let status = '';
             let detailsText = '';
-            let needleAngle = -90; // Default
+            let needleAngle = -90; // Default angle
 
-            // BMI کی حدود اور سوئی کی گردش (-90deg سے +90deg تک)
             if (bmi < 18.5) {
                 status = 'دبلا پن (Underweight)';
-                // -90deg (بائیں طرف) سے -45deg تک
-                needleAngle = -90 + (bmi / 18.5) * 45;
-                detailsText = `آپ کا وزن قد کے لحاظ سے کم ہے۔ آپ دبلے پن کا شکار ہیں۔<br><br>صحت مند اور متوازن وزن تک پہنچنے کے لیے آپ کو تقریباََ <strong>${weightDiff} کلوگرام وزن بڑھانا (خوراک بہتر کرنی) چاہیے</strong>۔`;
+                // Gauge angle: -90deg to -45deg
+                needleAngle = -90 + Math.min((bmi / 18.5) * 45, 45);
+                detailsText = `آپ کا BMI اسکور <strong>${bmi}</strong> ہے۔<br>طبی کیفیت: <strong style="color:#2563eb;">${status}</strong><br><br>آپ کا وزن قد کے حساب سے کم ہے۔ متوازن اور صحت مند حد میں آنے کے لیے آپ کو تقریباََ <strong>${weightDiff} کلوگرام وزن بڑھانا</strong> چاہیے۔`;
             } else if (bmi >= 18.5 && bmi <= 24.9) {
                 status = 'صحت مند وزن (Normal)';
-                // -45deg سے +15deg (سبز حصہ)
-                needleAngle = -20 + ((bmi - 18.5) / 6.4) * 35;
-                detailsText = `مبارک ہو! آپ کا وزن بالکل متوازن اور صحت مند ہے۔<br><br>آپ کو وزن گھٹانے یا بڑھانے کی ضرورت نہیں ہے، بس اپنی صحت کو ایسے ہی برقرار رکھیں۔`;
+                // Gauge angle: -45deg to 0deg
+                needleAngle = -45 + ((bmi - 18.5) / 6.4) * 45;
+                detailsText = `آپ کا BMI اسکور <strong>${bmi}</strong> ہے۔<br>طبی کیفیت: <strong style="color:#059669;">${status}</strong><br><br>مبارک ہو! آپ کا وزن بالکل متوازن اور صحت مند ہے۔ آپ کو وزن گھٹانے یا بڑھانے کی ضرورت نہیں ہے۔`;
             } else if (bmi >= 25 && bmi <= 29.9) {
                 status = 'زیادہ وزن (Overweight)';
-                // +15deg سے +55deg (پیلا حصہ)
-                needleAngle = +20 + ((bmi - 25) / 4.9) * 35;
-                detailsText = `آپ کا وزن صحت مند حد سے کچھ زیادہ ہے (Overweight)۔<br><br>صحت مند وزن میں واپس آنے کے لیے آپ کو اپنے وزن میں تقریباََ <strong>${weightDiff} کلوگرام کمی</strong> کرنا ہوگی۔`;
+                // Gauge angle: 0deg to 45deg
+                needleAngle = 0 + ((bmi - 25) / 4.9) * 45;
+                detailsText = `آپ کا BMI اسکور <strong>${bmi}</strong> ہے۔<br>طبی کیفیت: <strong style="color:#d97706;">${status}</strong><br><br>آپ کا وزن نارمل حد سے کچھ زیادہ ہے۔ صحت مند حد تک واپس آنے کے لیے آپ کو تقریباََ <strong>${weightDiff} کلوگرام وزن کم</strong> کرنا ہوگا۔`;
             } else {
-                status = 'موٹاپا (Obese)';
-                // +55deg سے +90deg (سرخ حصہ)
-                needleAngle = +60 + Math.min(((bmi - 30) / 10) * 30, 30);
-                detailsText = `آپ موٹاپے (Obesity) کا شکار ہیں جو صحت کے لیے خطرناک ہو سکتا ہے۔<br><br>خطرہ کم کرنے اور صحت مند زندگی کی طرف لوٹنے کے لیے آپ کو فوری طور پر تقریباََ <strong>${weightDiff} کلوگرام وزن کم کرنے</strong> کی ضرورت ہے۔`;
+                status = 'موٹاپا (Obesity)';
+                // Gauge angle: 45deg to 90deg
+                needleAngle = 45 + Math.min(((bmi - 30) / 15) * 45, 45);
+                detailsText = `آپ کا BMI اسکور <strong>${bmi}</strong> ہے۔<br>طبی کیفیت: <strong style="color:#dc2626;">${status}</strong><br><br>آپ موٹاپے کا شکار ہیں جو صحت کے لیے نقصان دہ ہو سکتا ہے۔ صحت مند حد حاصل کرنے کے لیے آپ کو فوری طور پر <strong>${weightDiff} کلوگرام وزن کم کرنے</strong> کی ہدایت کی جاتی ہے۔`;
             }
 
-            // چھوٹے ڈیش بورڈ پر گراف اور نتیجہ دکھائیں
-            document.getElementById('gauge-box').style.display = 'block';
-            document.getElementById('gauge-needle.style' || 'gauge-needle').style.transform = `rotate(${needleAngle}deg)`;
-            
-            let miniText = document.getElementById('bmi-mini-text');
-            miniText.style.display = 'block';
-            miniText.innerHTML = `BMI: ${bmi} — کیفیت: ${status}`;
+            // Hide Main Page, Show Report Page
+            document.getElementById('main-view').style.display = 'none';
+            document.getElementById('report-view').style.display = 'block';
 
-            // نیا تفصیلی صفحہ (Modal) کھولیں
-            document.getElementById('modal-body-text').innerHTML = `
-                آپ کا BMI اسکور: <strong>${bmi}</strong><br>
-                طبی کیفیت: <strong style="color: #0f766e;">${status}</strong><br><br>
-                ${detailsText}
-            `;
-            document.getElementById('bmi-modal').style.display = 'flex';
+            // Update Report Content
+            document.getElementById('report-text-details').innerHTML = detailsText;
+            
+            // Set Needle Angle
+            setTimeout(() => {
+                document.getElementById('gauge-needle-line').style.transform = `rotate(${needleAngle}deg)`;
+            }, 100);
         }
 
-        function closeModal() {
-            document.getElementById('bmi-modal').style.display = 'none';
+        function showMainPage() {
+            document.getElementById('report-view').style.display = 'none';
+            document.getElementById('main-view').style.display = 'block';
         }
     </script>
 </body>
