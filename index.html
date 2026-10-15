@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بہترین ملٹی کیلکولیٹر ڈیش بورڈ</title>
+    <title>بہترین ملٹی کیلکولیٹر اور صحت کا مرکز</title>
     <style>
         :root {
             --primary-gradient: linear-gradient(135deg, #0f766e, #0d9488);
@@ -72,7 +72,7 @@
             border: 4px solid #14b8a6;
             box-shadow: 0 15px 35px rgba(15, 118, 110, 0.15), 0 5px 15px rgba(0, 0, 0, 0.05);
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             display: none;
         }
 
@@ -184,41 +184,134 @@
             margin-top: 10px;
         }
 
-        .bmi-result {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 1.05rem;
-            font-weight: bold;
-            color: #0f766e;
-            line-height: 1.6;
-        }
-
-        /* ویژول گراف بار اور پرسنٹیج */
-        .bmi-graph-container {
-            margin-top: 15px;
-            background: #e2e8f0;
-            border-radius: 10px;
-            height: 28px;
-            width: 100%;
-            overflow: hidden;
+        /* گول گراف (Gauge Meter Style) */
+        .gauge-container {
             position: relative;
+            width: 260px;
+            height: 135px;
+            margin: 20px auto 10px auto;
+            overflow: hidden;
             display: none;
-            border: 1px solid #cbd5e1;
         }
 
-        .bmi-bar {
-            height: 100%;
-            width: 0%;
-            transition: width 0.5s ease-in-out, background-color 0.5s;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.85rem;
+        .gauge-arc {
+            width: 260px;
+            height: 130px;
+            border-top-left-radius: 130px;
+            border-top-right-radius: 130px;
+            background: conic-gradient(
+                from 180deg at 50% 100%,
+                #b91c1c 0deg,   /* Obese / Red */
+                #f59e0b 45deg,  /* Overweight / Yellow */
+                #10b981 90deg,  /* Normal / Green */
+                #3b82f6 135deg, /* Underweight / Blue */
+                #b91c1c 180deg
+            );
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .gauge-cover {
+            width: 200px;
+            height: 100px;
+            background: #ffffff;
+            border-top-left-radius: 100px;
+            border-top-right-radius: 100px;
+            position: absolute;
+            bottom: 0;
+            left: 30px;
+        }
+
+        .gauge-needle {
+            width: 4px;
+            height: 110px;
+            background: #1e293b;
+            position: absolute;
+            bottom: 0;
+            left: 128px;
+            transform-origin: bottom center;
+            transform: rotate(-90deg);
+            transition: transform 1s ease-in-out;
+            border-radius: 2px;
+        }
+
+        .gauge-needle::after {
+            content: '';
+            width: 14px;
+            height: 14px;
+            background: #0f766e;
+            position: absolute;
+            bottom: -7px;
+            left: -5px;
+            border-radius: 50%;
+        }
+
+        .bmi-mini-result {
+            text-align: center;
             font-weight: bold;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-            white-space: nowrap;
+            font-size: 1.1rem;
+            color: #0f766e;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* نیا تفصیلی صفحہ (Modal Popup) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 15px;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            text-align: right;
+            direction: rtl;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .modal-content h2 {
+            color: #0f766e;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #14b8a6;
+            padding-bottom: 8px;
+        }
+
+        .modal-body {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #334155;
+            margin-bottom: 20px;
+        }
+
+        .close-modal-btn {
+            background: #e11d48;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -294,23 +387,33 @@
         </div>
     </div>
 
-    <!-- 3. BMI Calculator with Weight Diff & % Graph -->
+    <!-- 3. BMI Calculator with Inches & Gauge Graph -->
     <div id="bmi" class="calculator-container">
         <div class="bmi-group">
             <label>وزن (کلوگرام میں):</label>
             <input type="number" id="bmi-weight" placeholder="مثلاً: 75">
         </div>
         <div class="bmi-group">
-            <label>قد (سینٹی میٹر میں):</label>
-            <input type="number" id="bmi-height" placeholder="مثلاً: 170">
+            <label>قد (کل انچ میں، مثلاً 5 فٹ 6 انچ = 66 انچ):</label>
+            <input type="number" id="bmi-height-inch" placeholder="مثلاً: 66">
         </div>
-        <button class="bmi-btn" onclick="calculateBMI()">BMI اور وزن کا فرق معلوم کریں</button>
+        <button class="bmi-btn" onclick="calculateBMI()">BMI اور تفصیلی رپورٹ دیکھیں</button>
         
-        <div id="bmi-output" class="bmi-result"></div>
-        
-        <!-- فیصد گراف بار -->
-        <div id="bmi-graph-box" class="bmi-graph-container">
-            <div id="bmi-bar" class="bmi-bar">0%</div>
+        <!-- سکرین شاٹ جیسی گول سوئی والا گراف -->
+        <div id="gauge-box" class="gauge-container">
+            <div class="gauge-arc"></div>
+            <div class="gauge-cover"></div>
+            <div id="gauge-needle" class="gauge-needle"></div>
+        </div>
+        <div id="bmi-mini-text" class="bmi-mini-result"></div>
+    </div>
+
+    <!-- نیا تفصیلی صفحہ (Popup Modal) -->
+    <div id="bmi-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>صحت اور وزنی رپورٹ</h2>
+            <div id="modal-body-text" class="modal-body"></div>
+            <button class="close-modal-btn" onclick="closeModal()">بند کریں</button>
         </div>
     </div>
 
@@ -364,68 +467,67 @@
 
         function calculateBMI() {
             let weight = parseFloat(document.getElementById('bmi-weight').value);
-            let heightCm = parseFloat(document.getElementById('bmi-height').value);
-            let output = document.getElementById('bmi-output');
-            let graphBox = document.getElementById('bmi-graph-box');
-            let bar = document.getElementById('bmi-bar');
-
-            if (!weight || !heightCm || weight <= 0 || heightCm <= 30) {
-                output.innerText = 'براہ کرم درست وزن اور قد (سینٹی میٹر میں) درج کریں!';
-                graphBox.style.display = 'none';
+            let heightInches = parseFloat(document.getElementById('bmi-height-inch').value);
+            
+            if (!weight || !heightInches || weight <= 0 || heightInches <= 10) {
+                alert('براہ کرم وزن اور قد (انچ میں) درست درج کریں!');
                 return;
             }
 
-            let heightM = heightCm / 100;
-            let bmi = (weight / (heightM * heightM)).toFixed(1);
-            
-            // آئیڈیل وزن کا حساب (صحت مند BMI کا وسط یعنی 22 کے حساب سے)
-            let idealWeight = 22 * (heightM * heightM);
+            // انچ کو میٹر میں تبدیل کرنا (1 انچ = 0.0254 میٹر)
+            let heightMeters = heightInches * 0.0254;
+            let bmi = (weight / (heightMeters * heightMeters)).toFixed(1);
+
+            // آئیڈیل وزن کا حساب (BMI 22 کے مطابق)
+            let idealWeight = 22 * (heightMeters * heightMeters);
             let weightDiff = Math.abs(weight - idealWeight).toFixed(1);
 
             let status = '';
-            let actionText = '';
-            let barWidth = 0;
-            let barColor = '';
-            let percentage = 0;
+            let detailsText = '';
+            let needleAngle = -90; // Default
 
+            // BMI کی حدود اور سوئی کی گردش (-90deg سے +90deg تک)
             if (bmi < 18.5) {
                 status = 'دبلا پن (Underweight)';
-                percentage = Math.round(((idealWeight - weight) / idealWeight) * 100);
-                actionText = `صحت مند وزن تک پہنچنے کے لیے آپ کو <strong>${weightDiff} کلوگرام</strong> وزن بڑھانا چاہیے۔`;
-                barWidth = Math.max(Math.min((bmi / 18.5) * 40, 40), 15);
-                barColor = '#3b82f6'; // نیلا
+                // -90deg (بائیں طرف) سے -45deg تک
+                needleAngle = -90 + (bmi / 18.5) * 45;
+                detailsText = `آپ کا وزن قد کے لحاظ سے کم ہے۔ آپ دبلے پن کا شکار ہیں۔<br><br>صحت مند اور متوازن وزن تک پہنچنے کے لیے آپ کو تقریباََ <strong>${weightDiff} کلوگرام وزن بڑھانا (خوراک بہتر کرنی) چاہیے</strong>۔`;
             } else if (bmi >= 18.5 && bmi <= 24.9) {
                 status = 'صحت مند وزن (Normal)';
-                percentage = 0;
-                actionText = `مبارک ہو! آپ کا وزن بالکل متوازن اور صحت مند ہے۔`;
-                barWidth = 50;
-                barColor = '#10b981'; // سبز
+                // -45deg سے +15deg (سبز حصہ)
+                needleAngle = -20 + ((bmi - 18.5) / 6.4) * 35;
+                detailsText = `مبارک ہو! آپ کا وزن بالکل متوازن اور صحت مند ہے۔<br><br>آپ کو وزن گھٹانے یا بڑھانے کی ضرورت نہیں ہے، بس اپنی صحت کو ایسے ہی برقرار رکھیں۔`;
             } else if (bmi >= 25 && bmi <= 29.9) {
                 status = 'زیادہ وزن (Overweight)';
-                percentage = Math.round(((weight - idealWeight) / idealWeight) * 100);
-                actionText = `صحت مند وزن تک آنے کے لیے آپ کو <strong>${weightDiff} کلوگرام</strong> وزن کم کرنا ہوگا۔`;
-                barWidth = 75;
-                barColor = '#f59e0b'; // نارنجی
+                // +15deg سے +55deg (پیلا حصہ)
+                needleAngle = +20 + ((bmi - 25) / 4.9) * 35;
+                detailsText = `آپ کا وزن صحت مند حد سے کچھ زیادہ ہے (Overweight)۔<br><br>صحت مند وزن میں واپس آنے کے لیے آپ کو اپنے وزن میں تقریباََ <strong>${weightDiff} کلوگرام کمی</strong> کرنا ہوگی۔`;
             } else {
                 status = 'موٹاپا (Obese)';
-                percentage = Math.round(((weight - idealWeight) / idealWeight) * 100);
-                actionText = `صحت مند وزن حاصل کرنے کے لیے آپ کو <strong>${weightDiff} کلوگرام</strong> وزن کم کرنا ضروری ہے!`;
-                barWidth = 100;
-                barColor = '#ef4444'; // سرخ
+                // +55deg سے +90deg (سرخ حصہ)
+                needleAngle = +60 + Math.min(((bmi - 30) / 10) * 30, 30);
+                detailsText = `آپ موٹاپے (Obesity) کا شکار ہیں جو صحت کے لیے خطرناک ہو سکتا ہے۔<br><br>خطرہ کم کرنے اور صحت مند زندگی کی طرف لوٹنے کے لیے آپ کو فوری طور پر تقریباََ <strong>${weightDiff} کلوگرام وزن کم کرنے</strong> کی ضرورت ہے۔`;
             }
 
-            output.innerHTML = `آپ کا BMI: <strong>${bmi}</strong> | کیفیت: <strong>${status}</strong><br>${actionText}`;
+            // چھوٹے ڈیش بورڈ پر گراف اور نتیجہ دکھائیں
+            document.getElementById('gauge-box').style.display = 'block';
+            document.getElementById('gauge-needle.style' || 'gauge-needle').style.transform = `rotate(${needleAngle}deg)`;
             
-            // گراف اور فیصد ظاہر کریں
-            graphBox.style.display = 'block';
-            bar.style.width = barWidth + '%';
-            bar.style.backgroundColor = barColor;
-            
-            if (percentage > 0) {
-                bar.innerText = `${percentage}% فرق`;
-            } else {
-                bar.innerText = `متوازن (100%)`;
-            }
+            let miniText = document.getElementById('bmi-mini-text');
+            miniText.style.display = 'block';
+            miniText.innerHTML = `BMI: ${bmi} — کیفیت: ${status}`;
+
+            // نیا تفصیلی صفحہ (Modal) کھولیں
+            document.getElementById('modal-body-text').innerHTML = `
+                آپ کا BMI اسکور: <strong>${bmi}</strong><br>
+                طبی کیفیت: <strong style="color: #0f766e;">${status}</strong><br><br>
+                ${detailsText}
+            `;
+            document.getElementById('bmi-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('bmi-modal').style.display = 'none';
         }
     </script>
 </body>
