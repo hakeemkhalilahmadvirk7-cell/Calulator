@@ -64,12 +64,11 @@
             box-shadow: 0 4px 10px rgba(13, 148, 136, 0.3);
         }
 
-        /* Calculator Container with Frame/Border */
+        /* Calculator Container with Frame */
         .calculator-container {
             background: var(--card-bg);
             padding: 30px;
             border-radius: 20px;
-            /* حاشیہ اور خوبصورت فریم */
             border: 4px solid #14b8a6;
             box-shadow: 0 15px 35px rgba(15, 118, 110, 0.15), 0 5px 15px rgba(0, 0, 0, 0.05);
             width: 100%;
@@ -117,8 +116,6 @@
             transform: scale(0.95);
         }
 
-        /* مختلف رنگوں والے بٹنز */
-        /* نمبرز والے بٹنز (ہلکا نیلا/سرمئی) */
         button.num-btn {
             background: #e2e8f0;
             color: #1e293b;
@@ -127,7 +124,6 @@
             background: #cbd5e1;
         }
 
-        /* آپریٹرز (+, -, *, /) (خوبصورت سبز ٹೋನ್) */
         button.operator {
             background: #99f6e4;
             color: #0f766e;
@@ -136,7 +132,6 @@
             background: #5eead4;
         }
 
-        /* کلیئر بٹن (C) (ہلکا سرخ) */
         button.action-clear {
             background: #fecaca;
             color: #b91c1c;
@@ -145,7 +140,6 @@
             background: #fca5a5;
         }
 
-        /* برابر (=) بٹن */
         button.equals {
             background: var(--primary-gradient);
             color: white;
@@ -193,17 +187,18 @@
         .bmi-result {
             margin-top: 20px;
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: bold;
             color: #0f766e;
+            line-height: 1.6;
         }
 
-        /* گراف اور ویژول بار سٹائل */
+        /* ویژول گراف بار اور پرسنٹیج */
         .bmi-graph-container {
             margin-top: 15px;
             background: #e2e8f0;
             border-radius: 10px;
-            height: 24px;
+            height: 28px;
             width: 100%;
             overflow: hidden;
             position: relative;
@@ -216,6 +211,14 @@
             width: 0%;
             transition: width 0.5s ease-in-out, background-color 0.5s;
             border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            white-space: nowrap;
         }
     </style>
 </head>
@@ -291,23 +294,23 @@
         </div>
     </div>
 
-    <!-- 3. BMI Calculator with Graph -->
+    <!-- 3. BMI Calculator with Weight Diff & % Graph -->
     <div id="bmi" class="calculator-container">
         <div class="bmi-group">
             <label>وزن (کلوگرام میں):</label>
-            <input type="number" id="bmi-weight" placeholder="مثلاً: 70">
+            <input type="number" id="bmi-weight" placeholder="مثلاً: 75">
         </div>
         <div class="bmi-group">
             <label>قد (سینٹی میٹر میں):</label>
-            <input type="number" id="bmi-height" placeholder="مثلاً: 175">
+            <input type="number" id="bmi-height" placeholder="مثلاً: 170">
         </div>
-        <button class="bmi-btn" onclick="calculateBMI()">BMI اور گراف معلوم کریں</button>
+        <button class="bmi-btn" onclick="calculateBMI()">BMI اور وزن کا فرق معلوم کریں</button>
         
         <div id="bmi-output" class="bmi-result"></div>
         
-        <!-- ویژول گراف بار -->
+        <!-- فیصد گراف بار -->
         <div id="bmi-graph-box" class="bmi-graph-container">
-            <div id="bmi-bar" class="bmi-bar"></div>
+            <div id="bmi-bar" class="bmi-bar">0%</div>
         </div>
     </div>
 
@@ -366,43 +369,63 @@
             let graphBox = document.getElementById('bmi-graph-box');
             let bar = document.getElementById('bmi-bar');
 
-            if (!weight || !heightCm || weight <= 0 || heightCm <= 0) {
-                output.innerText = 'براہ کرم درست وزن اور قد درج کریں!';
+            if (!weight || !heightCm || weight <= 0 || heightCm <= 30) {
+                output.innerText = 'براہ کرم درست وزن اور قد (سینٹی میٹر میں) درج کریں!';
                 graphBox.style.display = 'none';
                 return;
             }
 
             let heightM = heightCm / 100;
             let bmi = (weight / (heightM * heightM)).toFixed(1);
+            
+            // آئیڈیل وزن کا حساب (صحت مند BMI کا وسط یعنی 22 کے حساب سے)
+            let idealWeight = 22 * (heightM * heightM);
+            let weightDiff = Math.abs(weight - idealWeight).toFixed(1);
+
             let status = '';
+            let actionText = '';
             let barWidth = 0;
             let barColor = '';
+            let percentage = 0;
 
-            // کیٹیگری اور گراف کی ترتیب
             if (bmi < 18.5) {
                 status = 'دبلا پن (Underweight)';
-                barWidth = Math.min((bmi / 18.5) * 35, 35);
-                barColor = '#3b82f6'; // نیلا رنگ (کم وزن)
+                percentage = Math.round(((idealWeight - weight) / idealWeight) * 100);
+                actionText = `صحت مند وزن تک پہنچنے کے لیے آپ کو <strong>${weightDiff} کلوگرام</strong> وزن بڑھانا چاہیے۔`;
+                barWidth = Math.max(Math.min((bmi / 18.5) * 40, 40), 15);
+                barColor = '#3b82f6'; // نیلا
             } else if (bmi >= 18.5 && bmi <= 24.9) {
                 status = 'صحت مند وزن (Normal)';
+                percentage = 0;
+                actionText = `مبارک ہو! آپ کا وزن بالکل متوازن اور صحت مند ہے۔`;
                 barWidth = 50;
-                barColor = '#10b981'; // سبز رنگ (نارمل)
+                barColor = '#10b981'; // سبز
             } else if (bmi >= 25 && bmi <= 29.9) {
                 status = 'زیادہ وزن (Overweight)';
+                percentage = Math.round(((weight - idealWeight) / idealWeight) * 100);
+                actionText = `صحت مند وزن تک آنے کے لیے آپ کو <strong>${weightDiff} کلوگرام</strong> وزن کم کرنا ہوگا۔`;
                 barWidth = 75;
-                barColor = '#f59e0b'; // پیلا/نارنجی رنگ (اوور ویٹ)
+                barColor = '#f59e0b'; // نارنجی
             } else {
                 status = 'موٹاپا (Obese)';
+                percentage = Math.round(((weight - idealWeight) / idealWeight) * 100);
+                actionText = `صحت مند وزن حاصل کرنے کے لیے آپ کو <strong>${weightDiff} کلوگرام</strong> وزن کم کرنا ضروری ہے!`;
                 barWidth = 100;
-                barColor = '#ef4444'; // سرخ رنگ (موٹاپا)
+                barColor = '#ef4444'; // سرخ
             }
 
-            output.innerHTML = `آپ کا BMI: <strong>${bmi}</strong><br>کیفیت: <strong>${status}</strong>`;
+            output.innerHTML = `آپ کا BMI: <strong>${bmi}</strong> | کیفیت: <strong>${status}</strong><br>${actionText}`;
             
-            // گراف دکھائیں
+            // گراف اور فیصد ظاہر کریں
             graphBox.style.display = 'block';
             bar.style.width = barWidth + '%';
             bar.style.backgroundColor = barColor;
+            
+            if (percentage > 0) {
+                bar.innerText = `${percentage}% فرق`;
+            } else {
+                bar.innerText = `متوازن (100%)`;
+            }
         }
     </script>
 </body>
