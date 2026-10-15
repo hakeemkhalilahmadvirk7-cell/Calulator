@@ -27,44 +27,48 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px 10px;
         }
 
         h1 {
             color: #0f766e;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
             text-align: center;
         }
 
-        /* Navigation Tabs */
+        /* 3. Navigation Tabs Fix - Single Row Fit */
         .tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 15px;
             justify-content: center;
+            width: 100%;
+            max-width: 420px;
         }
 
         .tab-btn {
+            flex: 1;
             background: #cbd5e1;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 4px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.85rem;
             transition: 0.3s;
             color: #334155;
+            text-align: center;
+            white-space: nowrap;
         }
 
         .tab-btn.active {
             background: var(--primary-gradient);
             color: white;
-            box-shadow: 0 4px 10px rgba(13, 148, 136, 0.3);
+            box-shadow: 0 4px 8px rgba(13, 148, 136, 0.3);
         }
 
-        /* Main View - Calculator Container */
+        /* Main View Container */
         #main-view {
             width: 100%;
             max-width: 420px;
@@ -72,10 +76,10 @@
 
         .calculator-container {
             background: var(--card-bg);
-            padding: 30px;
+            padding: 20px;
             border-radius: 20px;
-            border: 4px solid #14b8a6;
-            box-shadow: 0 15px 35px rgba(15, 118, 110, 0.15), 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 3px solid #14b8a6;
+            box-shadow: 0 10px 25px rgba(15, 118, 110, 0.12);
             width: 100%;
             display: none;
         }
@@ -87,14 +91,14 @@
         /* Display */
         .display {
             width: 100%;
-            height: 65px;
+            height: 60px;
             background: #f8fafc;
             border: 2px solid #94a3b8;
             border-radius: 12px;
             font-size: 1.8rem;
             text-align: left;
             padding: 0 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: #0f172a;
             direction: ltr;
         }
@@ -103,45 +107,32 @@
         .keys {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+            gap: 10px;
         }
 
         button.calc-btn {
             border: none;
-            padding: 16px;
-            font-size: 1.2rem;
+            padding: 14px;
+            font-size: 1.1rem;
             border-radius: 10px;
             cursor: pointer;
             transition: 0.2s;
             font-weight: bold;
         }
 
-        button.calc-btn:active {
-            transform: scale(0.95);
-        }
-
         button.num-btn {
             background: #e2e8f0;
             color: #1e293b;
-        }
-        button.num-btn:hover {
-            background: #cbd5e1;
         }
 
         button.operator {
             background: #99f6e4;
             color: #0f766e;
         }
-        button.operator:hover {
-            background: #5eead4;
-        }
 
         button.action-clear {
             background: #fecaca;
             color: #b91c1c;
-        }
-        button.action-clear:hover {
-            background: #fca5a5;
         }
 
         button.equals {
@@ -154,7 +145,7 @@
             grid-column: span 2;
         }
 
-        /* BMI Inputs Styling */
+        /* BMI Inputs */
         .bmi-group {
             margin-bottom: 15px;
         }
@@ -164,6 +155,7 @@
             margin-bottom: 5px;
             font-weight: bold;
             color: #334155;
+            font-size: 0.95rem;
         }
 
         .bmi-group input {
@@ -182,87 +174,94 @@
             border: none;
             padding: 14px;
             border-radius: 8px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
         /* ----- SECOND PAGE (FULL REPORT VIEW) ----- */
         #report-view {
             display: none;
             width: 100%;
-            max-width: 500px;
+            max-width: 450px;
             background: var(--card-bg);
-            padding: 25px;
+            padding: 20px;
             border-radius: 20px;
-            border: 4px solid #14b8a6;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 3px solid #14b8a6;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
 
         .back-btn {
             background: #334155;
             color: white;
             border: none;
-            padding: 10px 18px;
+            padding: 10px 16px;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: bold;
             cursor: pointer;
-            margin-bottom: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            margin-bottom: 15px;
         }
 
         .report-header {
             color: #0f766e;
             border-bottom: 2px solid #14b8a6;
-            padding-bottom: 8px;
-            margin-bottom: 20px;
+            padding-bottom: 6px;
+            margin-bottom: 15px;
             text-align: center;
+            font-size: 1.3rem;
         }
 
-        /* Gauges & Needle Fix */
+        /* 2. Custom Gauge Meter with Labels & Numbers Fix */
         .gauge-wrapper {
             position: relative;
-            width: 240px;
-            height: 120px;
-            margin: 20px auto 30px auto;
+            width: 260px;
+            height: 145px;
+            margin: 15px auto 10px auto;
         }
 
         .gauge-body {
-            width: 240px;
-            height: 120px;
-            border-top-left-radius: 120px;
-            border-top-right-radius: 120px;
+            width: 260px;
+            height: 130px;
+            border-top-left-radius: 130px;
+            border-top-right-radius: 130px;
             background: conic-gradient(
                 from 270deg at 50% 100%,
-                #3b82f6 0deg 40deg,   /* Underweight - Blue */
-                #10b981 40deg 90deg,  /* Normal - Green */
-                #f59e0b 90deg 130deg, /* Overweight - Yellow */
-                #ef4444 130deg 180deg /* Obese - Red */
+                #3b82f6 0deg 45deg,   /* Underweight - Blue */
+                #10b981 45deg 90deg,  /* Normal - Green */
+                #f59e0b 90deg 135deg, /* Overweight - Yellow */
+                #ef4444 135deg 180deg /* Obese - Red */
             );
         }
 
         .gauge-inner {
             position: absolute;
             bottom: 0;
-            left: 30px;
-            width: 180px;
-            height: 90px;
+            left: 35px;
+            width: 190px;
+            height: 95px;
             background: #ffffff;
-            border-top-left-radius: 90px;
-            border-top-right-radius: 90px;
+            border-top-left-radius: 95px;
+            border-top-right-radius: 95px;
+            text-align: center;
+            padding-top: 35px;
+        }
+
+        .gauge-score-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #0f172a;
+            direction: ltr;
         }
 
         .gauge-needle-pin {
             position: absolute;
             bottom: -5px;
-            left: 112px;
+            left: 122px;
             width: 16px;
             height: 16px;
-            background: #0f766e;
+            background: #475569;
             border-radius: 50%;
             z-index: 10;
         }
@@ -270,7 +269,7 @@
         .gauge-needle-line {
             position: absolute;
             bottom: 3px;
-            left: 118px;
+            left: 128px;
             width: 4px;
             height: 95px;
             background: #0f172a;
@@ -281,27 +280,45 @@
             z-index: 9;
         }
 
-        .report-details {
-            background: #f8fafc;
-            padding: 18px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 25px;
+        /* Gauge Text Labels */
+        .label-text {
+            position: absolute;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #334155;
         }
 
-        /* BMI List Table */
+        .lbl-underweight { top: 75px; left: -5px; transform: rotate(-45deg); color: #2563eb; }
+        .lbl-normal { top: 8px; left: 45px; transform: rotate(-20deg); color: #059669; }
+        .lbl-overweight { top: 8px; right: 45px; transform: rotate(20deg); color: #d97706; }
+        .lbl-obese { top: 75px; right: -5px; transform: rotate(45deg); color: #dc2626; }
+
+        /* Gauge Numbers */
+        .lbl-num18 { top: 48px; left: 32px; font-weight: bold; font-size: 0.7rem; }
+        .lbl-num25 { top: -2px; left: 118px; font-weight: bold; font-size: 0.7rem; }
+        .lbl-num30 { top: 48px; right: 32px; font-weight: bold; font-size: 0.7rem; }
+
+        .report-details {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        /* 1. Dynamic Interactive BMI Table Fix */
         .bmi-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
-            font-size: 0.95rem;
+            margin-top: 10px;
+            font-size: 0.88rem;
         }
 
         .bmi-table th, .bmi-table td {
             border: 1px solid #cbd5e1;
-            padding: 10px;
+            padding: 8px;
             text-align: center;
         }
 
@@ -310,8 +327,10 @@
             color: white;
         }
 
-        .bmi-table tr:nth-child(even) {
-            background: #f1f5f9;
+        .bmi-row-active {
+            background-color: #fef08a !important; /* Highlight Active Row */
+            border: 2px solid #ca8a04 !important;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -321,7 +340,7 @@
 
     <!-- MAIN VIEW (Inputs & Calculators) -->
     <div id="main-view">
-        <!-- Navigation Tabs -->
+        <!-- 3. Navigation Tabs Fix -->
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('simple', this)">سادہ کیلکولیٹر</button>
             <button class="tab-btn" onclick="switchTab('scientific', this)">سائنسی کیلکولیٹر</button>
@@ -408,19 +427,32 @@
         <button class="back-btn" onclick="showMainPage()">➔ واپس کیلکولیٹر پر جائیں</button>
         <h2 class="report-header">صحت اور BMI تفصیلی رپورٹ</h2>
 
-        <!-- Gauge Meter -->
+        <!-- 2. Gauge Meter with Numbers & Text Labels -->
         <div class="gauge-wrapper">
             <div class="gauge-body"></div>
-            <div class="gauge-inner"></div>
+            <div class="gauge-inner">
+                <div id="gauge-score-text" class="gauge-score-text">BMI = 0.0</div>
+            </div>
             <div class="gauge-needle-pin"></div>
             <div id="gauge-needle-line" class="gauge-needle-line"></div>
+
+            <!-- Category Labels -->
+            <span class="label-text lbl-underweight">Underweight</span>
+            <span class="label-text lbl-normal">Normal</span>
+            <span class="label-text lbl-overweight">Overweight</span>
+            <span class="label-text lbl-obese">Obesity</span>
+
+            <!-- Numbers -->
+            <span class="label-text lbl-num18">18.5</span>
+            <span class="label-text lbl-num25">25</span>
+            <span class="label-text lbl-num30">30</span>
         </div>
 
         <!-- Result Details -->
         <div id="report-text-details" class="report-details"></div>
 
-        <!-- BMI Reference Table -->
-        <h3 style="color:#0f766e; margin-bottom:10px;">BMI کے معیار کی تفصیلی لسٹ:</h3>
+        <!-- 1. Interactive BMI Reference Table -->
+        <h3 style="color:#0f766e; margin-bottom:8px; font-size:1.05rem;">BMI کے معیار کی تفصیلی لسٹ:</h3>
         <table class="bmi-table">
             <thead>
                 <tr>
@@ -430,22 +462,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr style="color:#2563eb;">
+                <tr id="row-underweight" style="color:#2563eb;">
                     <td>18.5 سے کم</td>
                     <td>دبلا پن (Underweight)</td>
                     <td>خوراک اور وزن بڑھانے کی ضرورت ہے</td>
                 </tr>
-                <tr style="color:#059669; font-weight:bold;">
+                <tr id="row-normal" style="color:#059669;">
                     <td>18.5 تا 24.9</td>
                     <td>صحت مند (Normal)</td>
-                    <td>وزن بالکل متوازن اور اائیڈیل ہے</td>
+                    <td>وزن بالکل متوازن اور آئیڈیل ہے</td>
                 </tr>
-                <tr style="color:#d97706;">
+                <tr id="row-overweight" style="color:#d97706;">
                     <td>25.0 تا 29.9</td>
                     <td>زیادہ وزن (Overweight)</td>
                     <td>وزن گھٹانے کی شروعات کی ضرورت ہے</td>
                 </tr>
-                <tr style="color:#dc2626; font-weight:bold;">
+                <tr id="row-obese" style="color:#dc2626;">
                     <td>30.0 یا اس سے زیادہ</td>
                     <td>موٹاپا (Obesity)</td>
                     <td>فوری طور پر وزن کم کرنا ضروری ہے</td>
@@ -521,37 +553,47 @@
             let status = '';
             let detailsText = '';
             let needleAngle = -90; // Default angle
+            let activeRowId = '';
+
+            // Reset Previous Row Highlights
+            document.querySelectorAll('.bmi-table tr').forEach(row => row.classList.remove('bmi-row-active'));
 
             if (bmi < 18.5) {
                 status = 'دبلا پن (Underweight)';
-                // Gauge angle: -90deg to -45deg
                 needleAngle = -90 + Math.min((bmi / 18.5) * 45, 45);
-                detailsText = `آپ کا BMI اسکور <strong>${bmi}</strong> ہے۔<br>طبی کیفیت: <strong style="color:#2563eb;">${status}</strong><br><br>آپ کا وزن قد کے حساب سے کم ہے۔ متوازن اور صحت مند حد میں آنے کے لیے آپ کو تقریباََ <strong>${weightDiff} کلوگرام وزن بڑھانا</strong> چاہیے۔`;
+                detailsText = `آپ کا موجودہ وزن: <strong>${weight} کلوگرام</strong><br>تجویز کردہ متوازن وزن: <strong>${idealWeight.toFixed(1)} کلوگرام</strong><br><br>آپ کا وزن قد کے حساب سے کم ہے۔ متوازن اور صحت مند حد میں آنے کے لیے آپ کو تقریباََ <strong>${weightDiff} کلوگرام وزن بڑھانا</strong> چاہیے۔`;
+                activeRowId = 'row-underweight';
             } else if (bmi >= 18.5 && bmi <= 24.9) {
                 status = 'صحت مند وزن (Normal)';
-                // Gauge angle: -45deg to 0deg
                 needleAngle = -45 + ((bmi - 18.5) / 6.4) * 45;
-                detailsText = `آپ کا BMI اسکور <strong>${bmi}</strong> ہے۔<br>طبی کیفیت: <strong style="color:#059669;">${status}</strong><br><br>مبارک ہو! آپ کا وزن بالکل متوازن اور صحت مند ہے۔ آپ کو وزن گھٹانے یا بڑھانے کی ضرورت نہیں ہے۔`;
+                detailsText = `آپ کا موجودہ وزن: <strong>${weight} کلوگرام</strong><br>تجویز کردہ متوازن وزن: <strong>${idealWeight.toFixed(1)} کلوگرام</strong><br><br>مبارک ہو! آپ کا وزن بالکل متوازن اور صحت مند ہے۔ آپ کو وزن گھٹانے یا بڑھانے کی ضرورت نہیں ہے۔`;
+                activeRowId = 'row-normal';
             } else if (bmi >= 25 && bmi <= 29.9) {
                 status = 'زیادہ وزن (Overweight)';
-                // Gauge angle: 0deg to 45deg
                 needleAngle = 0 + ((bmi - 25) / 4.9) * 45;
-                detailsText = `آپ کا BMI اسکور <strong>${bmi}</strong> ہے۔<br>طبی کیفیت: <strong style="color:#d97706;">${status}</strong><br><br>آپ کا وزن نارمل حد سے کچھ زیادہ ہے۔ صحت مند حد تک واپس آنے کے لیے آپ کو تقریباََ <strong>${weightDiff} کلوگرام وزن کم</strong> کرنا ہوگا۔`;
+                detailsText = `آپ کا موجودہ وزن: <strong>${weight} کلوگرام</strong><br>تجویز کردہ متوازن وزن: <strong>${idealWeight.toFixed(1)} کلوگرام</strong><br><br>آپ کا وزن نارمل حد سے کچھ زیادہ ہے۔ صحت مند حد تک واپس آنے کے لیے آپ کو تقریباََ <strong>${weightDiff} کلوگرام وزن کم</strong> کرنا ہوگا۔`;
+                activeRowId = 'row-overweight';
             } else {
                 status = 'موٹاپا (Obesity)';
-                // Gauge angle: 45deg to 90deg
                 needleAngle = 45 + Math.min(((bmi - 30) / 15) * 45, 45);
-                detailsText = `آپ کا BMI اسکور <strong>${bmi}</strong> ہے۔<br>طبی کیفیت: <strong style="color:#dc2626;">${status}</strong><br><br>آپ موٹاپے کا شکار ہیں جو صحت کے لیے نقصان دہ ہو سکتا ہے۔ صحت مند حد حاصل کرنے کے لیے آپ کو فوری طور پر <strong>${weightDiff} کلوگرام وزن کم کرنے</strong> کی ہدایت کی جاتی ہے۔`;
+                detailsText = `آپ کا موجودہ وزن: <strong>${weight} کلوگرام</strong><br>تجویز کردہ متوازن وزن: <strong>${idealWeight.toFixed(1)} کلوگرام</strong><br><br>آپ موٹاپے کا شکار ہیں جو صحت کے لیے نقصان دہ ہو سکتا ہے۔ صحت مند حد حاصل کرنے کے لیے آپ کو فوری طور پر <strong>${weightDiff} کلوگرام وزن کم کرنے</strong> کی ہدایت کی جاتی ہے۔`;
+                activeRowId = 'row-obese';
             }
 
-            // Hide Main Page, Show Report Page
+            // Hide Main View, Show Report View
             document.getElementById('main-view').style.display = 'none';
             document.getElementById('report-view').style.display = 'block';
 
-            // Update Report Content
+            // Update Report Contents
+            document.getElementById('gauge-score-text').innerText = `BMI = ${bmi}`;
             document.getElementById('report-text-details').innerHTML = detailsText;
             
-            // Set Needle Angle
+            // Highlight Dynamic Row in Table
+            if(activeRowId) {
+                document.getElementById(activeRowId).classList.add('bmi-row-active');
+            }
+
+            // Rotate Needle
             setTimeout(() => {
                 document.getElementById('gauge-needle-line').style.transform = `rotate(${needleAngle}deg)`;
             }, 100);
