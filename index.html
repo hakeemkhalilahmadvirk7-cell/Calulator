@@ -37,7 +37,7 @@
             text-align: center;
         }
 
-        /* 3. Navigation Tabs Fix - Single Row Fit */
+        /* Navigation Tabs */
         .tabs {
             display: flex;
             gap: 6px;
@@ -213,19 +213,19 @@
             font-size: 1.3rem;
         }
 
-        /* 2. Custom Gauge Meter with Labels & Numbers Fix */
+        /* Fixed Gauge Meter Design */
         .gauge-wrapper {
             position: relative;
-            width: 260px;
-            height: 145px;
-            margin: 15px auto 10px auto;
+            width: 280px;
+            height: 155px;
+            margin: 20px auto 15px auto;
         }
 
         .gauge-body {
-            width: 260px;
-            height: 130px;
-            border-top-left-radius: 130px;
-            border-top-right-radius: 130px;
+            width: 280px;
+            height: 140px;
+            border-top-left-radius: 140px;
+            border-top-right-radius: 140px;
             background: conic-gradient(
                 from 270deg at 50% 100%,
                 #3b82f6 0deg 45deg,   /* Underweight - Blue */
@@ -238,18 +238,18 @@
         .gauge-inner {
             position: absolute;
             bottom: 0;
-            left: 35px;
-            width: 190px;
-            height: 95px;
+            left: 40px;
+            width: 200px;
+            height: 100px;
             background: #ffffff;
-            border-top-left-radius: 95px;
-            border-top-right-radius: 95px;
+            border-top-left-radius: 100px;
+            border-top-right-radius: 100px;
             text-align: center;
-            padding-top: 35px;
+            padding-top: 40px;
         }
 
         .gauge-score-text {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 800;
             color: #0f172a;
             direction: ltr;
@@ -258,7 +258,7 @@
         .gauge-needle-pin {
             position: absolute;
             bottom: -5px;
-            left: 122px;
+            left: 132px;
             width: 16px;
             height: 16px;
             background: #475569;
@@ -269,9 +269,9 @@
         .gauge-needle-line {
             position: absolute;
             bottom: 3px;
-            left: 128px;
+            left: 138px;
             width: 4px;
-            height: 95px;
+            height: 105px;
             background: #0f172a;
             transform-origin: bottom center;
             transform: rotate(-90deg);
@@ -280,23 +280,36 @@
             z-index: 9;
         }
 
-        /* Gauge Text Labels */
+        /* Clean Positioned Gauge Labels */
+        .gauge-labels {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
         .label-text {
             position: absolute;
             font-size: 0.75rem;
             font-weight: bold;
-            color: #334155;
         }
 
-        .lbl-underweight { top: 75px; left: -5px; transform: rotate(-45deg); color: #2563eb; }
-        .lbl-normal { top: 8px; left: 45px; transform: rotate(-20deg); color: #059669; }
-        .lbl-overweight { top: 8px; right: 45px; transform: rotate(20deg); color: #d97706; }
-        .lbl-obese { top: 75px; right: -5px; transform: rotate(45deg); color: #dc2626; }
+        .lbl-underweight { top: 95px; left: 18px; color: #2563eb; }
+        .lbl-normal { top: 22px; left: 75px; color: #059669; }
+        .lbl-overweight { top: 22px; right: 75px; color: #d97706; }
+        .lbl-obese { top: 95px; right: 18px; color: #dc2626; }
 
-        /* Gauge Numbers */
-        .lbl-num18 { top: 48px; left: 32px; font-weight: bold; font-size: 0.7rem; }
-        .lbl-num25 { top: -2px; left: 118px; font-weight: bold; font-size: 0.7rem; }
-        .lbl-num30 { top: 48px; right: 32px; font-weight: bold; font-size: 0.7rem; }
+        .lbl-num {
+            position: absolute;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #334155;
+        }
+        .lbl-num18 { top: 62px; left: 62px; }
+        .lbl-num25 { top: 8px; left: 134px; }
+        .lbl-num30 { top: 62px; right: 62px; }
 
         .report-details {
             background: #f8fafc;
@@ -308,7 +321,7 @@
             margin-bottom: 20px;
         }
 
-        /* 1. Dynamic Interactive BMI Table Fix */
+        /* BMI Reference Table */
         .bmi-table {
             width: 100%;
             border-collapse: collapse;
@@ -328,7 +341,7 @@
         }
 
         .bmi-row-active {
-            background-color: #fef08a !important; /* Highlight Active Row */
+            background-color: #fef08a !important;
             border: 2px solid #ca8a04 !important;
             font-weight: bold;
         }
@@ -338,9 +351,8 @@
 
     <h1>حساب کتاب اور صحت کا مرکز</h1>
 
-    <!-- MAIN VIEW (Inputs & Calculators) -->
+    <!-- MAIN VIEW -->
     <div id="main-view">
-        <!-- 3. Navigation Tabs Fix -->
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('simple', this)">سادہ کیلکولیٹر</button>
             <button class="tab-btn" onclick="switchTab('scientific', this)">سائنسی کیلکولیٹر</button>
@@ -427,7 +439,7 @@
         <button class="back-btn" onclick="showMainPage()">➔ واپس کیلکولیٹر پر جائیں</button>
         <h2 class="report-header">صحت اور BMI تفصیلی رپورٹ</h2>
 
-        <!-- 2. Gauge Meter with Numbers & Text Labels -->
+        <!-- Gauge Meter -->
         <div class="gauge-wrapper">
             <div class="gauge-body"></div>
             <div class="gauge-inner">
@@ -436,22 +448,22 @@
             <div class="gauge-needle-pin"></div>
             <div id="gauge-needle-line" class="gauge-needle-line"></div>
 
-            <!-- Category Labels -->
-            <span class="label-text lbl-underweight">Underweight</span>
-            <span class="label-text lbl-normal">Normal</span>
-            <span class="label-text lbl-overweight">Overweight</span>
-            <span class="label-text lbl-obese">Obesity</span>
+            <div class="gauge-labels">
+                <span class="label-text lbl-underweight">Underweight</span>
+                <span class="label-text lbl-normal">Normal</span>
+                <span class="label-text lbl-overweight">Overweight</span>
+                <span class="label-text lbl-obese">Obesity</span>
 
-            <!-- Numbers -->
-            <span class="label-text lbl-num18">18.5</span>
-            <span class="label-text lbl-num25">25</span>
-            <span class="label-text lbl-num30">30</span>
+                <span class="lbl-num lbl-num18">18.5</span>
+                <span class="lbl-num lbl-num25">25</span>
+                <span class="lbl-num lbl-num30">30</span>
+            </div>
         </div>
 
         <!-- Result Details -->
         <div id="report-text-details" class="report-details"></div>
 
-        <!-- 1. Interactive BMI Reference Table -->
+        <!-- Interactive BMI Reference Table -->
         <h3 style="color:#0f766e; margin-bottom:8px; font-size:1.05rem;">BMI کے معیار کی تفصیلی لسٹ:</h3>
         <table class="bmi-table">
             <thead>
@@ -543,7 +555,6 @@
                 return;
             }
 
-            // Calculations
             let heightMeters = heightInches * 0.0254;
             let bmi = (weight / (heightMeters * heightMeters)).toFixed(1);
 
@@ -552,10 +563,10 @@
 
             let status = '';
             let detailsText = '';
-            let needleAngle = -90; // Default angle
+            let needleAngle = -90; 
             let activeRowId = '';
 
-            // Reset Previous Row Highlights
+            // Reset previous highlights
             document.querySelectorAll('.bmi-table tr').forEach(row => row.classList.remove('bmi-row-active'));
 
             if (bmi < 18.5) {
@@ -588,7 +599,7 @@
             document.getElementById('gauge-score-text').innerText = `BMI = ${bmi}`;
             document.getElementById('report-text-details').innerHTML = detailsText;
             
-            // Highlight Dynamic Row in Table
+            // Highlight Correct Table Row
             if(activeRowId) {
                 document.getElementById(activeRowId).classList.add('bmi-row-active');
             }
